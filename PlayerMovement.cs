@@ -22,11 +22,14 @@ public class PlayerMovement : MonoBehaviour
         MovementInput();
     }
 
+
+
     private void FixedUpdate() 
     {
         rb.velocity = movement * moveSpeed;
     }
 
+    // Movement Input
     void MovementInput() {
         float mx = Input.GetAxisRaw("Horizontal");
         float my = Input.GetAxisRaw("Vertical");
