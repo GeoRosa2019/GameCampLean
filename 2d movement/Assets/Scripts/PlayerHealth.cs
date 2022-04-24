@@ -20,8 +20,14 @@ public class PlayerHealth : MonoBehaviour
             health = maxHealth;
         } else if (health <= 0f) {
             health = 0f;
-            Debug.Log("Player Respawn");
+            PlayerDied();
         }
+    }
+
+    private void PlayerDied()
+    {
+        LevelManager.instance.GameOver();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
