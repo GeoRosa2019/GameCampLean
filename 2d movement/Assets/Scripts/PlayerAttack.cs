@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float speed = 3f;
+    [SerializeField] private float attackDamage = 100f;
+    [SerializeField] private float attackSpeed = 1f;
+    private float canAttack;
     void Start()
     {
-        
+        //Set the tag of this GameObject to Player
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (other.gameObject.tag == "Enemy")
+            {
+                if (attackSpeed <= canAttack)
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().UpdateHealth(-attackDamage);
+                    canAttack = 0f;
+                }
+                else
+                {
+                    canAttack += Time.deltaTime;
+                }
+            }
+        }
     }
+
+
 }
