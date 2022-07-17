@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-   /* private void OnCollisionEnter2D(Collision2D other) {
+   private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag == "Player") {
             if (attackSpeed <= canAttack){
             other.gameObject.GetComponent<PlayerHealth>().UpdateHealth(-attackDamage);
@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour
                 canAttack += Time.deltaTime;
             }
         }
-    }*/
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Player") {
             target = other.transform;

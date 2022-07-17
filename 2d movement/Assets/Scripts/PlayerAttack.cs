@@ -8,6 +8,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackSpeed = 1f;
     public Transform attackPoint;
     public float attackRange = 0.5f;
+    public float canAttack;
     public LayerMask enemyLayers;
     void Start()
     {
@@ -17,9 +18,18 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (attackSpeed <= canAttack)
         {
-            Attack();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+                canAttack = 0f;
+            }
+            
+        }
+        else
+        {
+            canAttack += Time.deltaTime;
         }
     }
 
