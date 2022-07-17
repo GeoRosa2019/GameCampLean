@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private float health = 0f;
-    [SerializeField] private float maxHealth = 100f;
+     float health = 0f;
+    [SerializeField] float maxHealth = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,18 +18,18 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
-    public void UpdateHealth(float mod)
+    public void TakeDamage(int damage)
     {
-        health += mod;
+        health -= damage;
 
-        if (health > maxHealth)
+        if (health <= 0f)
         {
-            health = maxHealth;
+            Die();
         }
-        else if (health <= 0f)
-        {
-            health = 0f;
-            Destroy(gameObject);
-        }
+    }
+    void Die()
+    {
+        Debug.Log("Enemy Died!");
+        Destroy(gameObject);
     }
 }

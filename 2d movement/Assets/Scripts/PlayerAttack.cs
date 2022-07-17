@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float speed = 3f;
-    [SerializeField] private float attackDamage = 100f;
+    [SerializeField] public int attackDamage = 10;
     [SerializeField] private float attackSpeed = 1f;
-    private float canAttack;
+    public Transform attackPoint;
+    public float attackRange = 0.5f;
+    public LayerMask enemyLayers;
     void Start()
     {
         //Set the tag of this GameObject to Player
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (other.gameObject.tag == "Enemy")
-            {
-                if (attackSpeed <= canAttack)
-                {
-                    other.gameObject.GetComponent<EnemyHealth>().UpdateHealth(-attackDamage);
-                    canAttack = 0f;
-                }
-                else
-                {
-                    canAttack += Time.deltaTime;
-                }
-            }
+            Attack();
         }
     }
 
+    void Attack()
+    {
+        Collider2D[] hitenimies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
+        foreach(Collider2D enemy in hitenimies)
+        {
+            enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
 }
